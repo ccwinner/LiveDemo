@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D4E33FE2471795F00D10C47 /* CXCameraInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4E33FD2471795F00D10C47 /* CXCameraInput.m */; };
 		5DD6275B24716AAE00C75AD1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6275A24716AAE00C75AD1 /* AppDelegate.m */; };
 		5DD6275E24716AAE00C75AD1 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6275D24716AAE00C75AD1 /* SceneDelegate.m */; };
 		5DD6276124716AAE00C75AD1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6276024716AAE00C75AD1 /* ViewController.m */; };
@@ -19,6 +20,8 @@
 
 /* Begin PBXFileReference section */
 		138B072B57BB68933C514B20 /* Pods-LiveAppDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveAppDemo.release.xcconfig"; path = "Target Support Files/Pods-LiveAppDemo/Pods-LiveAppDemo.release.xcconfig"; sourceTree = "<group>"; };
+		5D4E33FC2471795F00D10C47 /* CXCameraInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CXCameraInput.h; sourceTree = "<group>"; };
+		5D4E33FD2471795F00D10C47 /* CXCameraInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CXCameraInput.m; sourceTree = "<group>"; };
 		5DD6275624716AAE00C75AD1 /* LiveAppDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveAppDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DD6275924716AAE00C75AD1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5DD6275A24716AAE00C75AD1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -53,7 +56,6 @@
 				D984F978D7737674F0183580 /* Pods-LiveAppDemo.debug.xcconfig */,
 				138B072B57BB68933C514B20 /* Pods-LiveAppDemo.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -63,6 +65,15 @@
 				E6F0E17922F91CBE585B2678 /* libPods-LiveAppDemo.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5D4E33FF2471796800D10C47 /* Camera Capture */ = {
+			isa = PBXGroup;
+			children = (
+				5D4E33FC2471795F00D10C47 /* CXCameraInput.h */,
+				5D4E33FD2471795F00D10C47 /* CXCameraInput.m */,
+			);
+			path = "Camera Capture";
 			sourceTree = "<group>";
 		};
 		5DD6274D24716AAE00C75AD1 = {
@@ -97,6 +108,7 @@
 				5DD6276724716AB100C75AD1 /* LaunchScreen.storyboard */,
 				5DD6276A24716AB100C75AD1 /* Info.plist */,
 				5DD6276B24716AB100C75AD1 /* main.m */,
+				5D4E33FF2471796800D10C47 /* Camera Capture */,
 			);
 			path = LiveAppDemo;
 			sourceTree = "<group>";
@@ -216,6 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DD6276124716AAE00C75AD1 /* ViewController.m in Sources */,
+				5D4E33FE2471795F00D10C47 /* CXCameraInput.m in Sources */,
 				5DD6275B24716AAE00C75AD1 /* AppDelegate.m in Sources */,
 				5DD6276C24716AB100C75AD1 /* main.m in Sources */,
 				5DD6275E24716AAE00C75AD1 /* SceneDelegate.m in Sources */,
