@@ -15,6 +15,7 @@
 		5DD6276624716AB100C75AD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DD6276524716AB100C75AD1 /* Assets.xcassets */; };
 		5DD6276924716AB100C75AD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DD6276724716AB100C75AD1 /* LaunchScreen.storyboard */; };
 		5DD6276C24716AB100C75AD1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6276B24716AB100C75AD1 /* main.m */; };
+		6532E7D824726E1D001DD9EA /* CXCameraOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532E7D724726E1D001DD9EA /* CXCameraOutput.m */; };
 		AFC2D8C04E0A9F94FE763026 /* libPods-LiveAppDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6F0E17922F91CBE585B2678 /* libPods-LiveAppDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,9 @@
 		5DD6276824716AB100C75AD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5DD6276A24716AB100C75AD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5DD6276B24716AB100C75AD1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6532E7D524726179001DD9EA /* CXMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CXMacros.h; sourceTree = "<group>"; };
+		6532E7D624726E1D001DD9EA /* CXCameraOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CXCameraOutput.h; sourceTree = "<group>"; };
+		6532E7D724726E1D001DD9EA /* CXCameraOutput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CXCameraOutput.m; sourceTree = "<group>"; };
 		D984F978D7737674F0183580 /* Pods-LiveAppDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveAppDemo.debug.xcconfig"; path = "Target Support Files/Pods-LiveAppDemo/Pods-LiveAppDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		E6F0E17922F91CBE585B2678 /* libPods-LiveAppDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LiveAppDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -72,6 +76,8 @@
 			children = (
 				5D4E33FC2471795F00D10C47 /* CXCameraInput.h */,
 				5D4E33FD2471795F00D10C47 /* CXCameraInput.m */,
+				6532E7D624726E1D001DD9EA /* CXCameraOutput.h */,
+				6532E7D724726E1D001DD9EA /* CXCameraOutput.m */,
 			);
 			path = "Camera Capture";
 			sourceTree = "<group>";
@@ -108,6 +114,7 @@
 				5DD6276724716AB100C75AD1 /* LaunchScreen.storyboard */,
 				5DD6276A24716AB100C75AD1 /* Info.plist */,
 				5DD6276B24716AB100C75AD1 /* main.m */,
+				6532E7D524726179001DD9EA /* CXMacros.h */,
 				5D4E33FF2471796800D10C47 /* Camera Capture */,
 			);
 			path = LiveAppDemo;
@@ -227,6 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6532E7D824726E1D001DD9EA /* CXCameraOutput.m in Sources */,
 				5DD6276124716AAE00C75AD1 /* ViewController.m in Sources */,
 				5D4E33FE2471795F00D10C47 /* CXCameraInput.m in Sources */,
 				5DD6275B24716AAE00C75AD1 /* AppDelegate.m in Sources */,
@@ -307,7 +315,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -359,7 +367,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

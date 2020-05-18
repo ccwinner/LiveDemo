@@ -7,10 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+@class AVCaptureDeviceInput, AVCaptureSession;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CXCameraInput : NSObject
+@property (nonatomic, assign, readonly) NSInteger currentPosition;
+@property (nonatomic, readonly) AVCaptureDeviceInput *capturedDeviceInput;
+
+- (instancetype)initWithSession:(AVCaptureSession *)session;
 
 @end
 
