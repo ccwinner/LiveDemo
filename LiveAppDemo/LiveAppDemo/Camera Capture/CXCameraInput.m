@@ -60,6 +60,10 @@
     }
 }
 
+- (AVCaptureDevice *)camera {
+    return self.capturedDeviceInput.device;
+}
+
 #pragma mark - Private
 
 

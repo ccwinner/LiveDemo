@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5D4E33FE2471795F00D10C47 /* CXCameraInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4E33FD2471795F00D10C47 /* CXCameraInput.m */; };
+		5DB53AC72472CE9000C97005 /* CXCaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB53AC62472CE9000C97005 /* CXCaptureSessionManager.m */; };
 		5DD6275B24716AAE00C75AD1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6275A24716AAE00C75AD1 /* AppDelegate.m */; };
 		5DD6275E24716AAE00C75AD1 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6275D24716AAE00C75AD1 /* SceneDelegate.m */; };
 		5DD6276124716AAE00C75AD1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6276024716AAE00C75AD1 /* ViewController.m */; };
@@ -23,6 +24,8 @@
 		138B072B57BB68933C514B20 /* Pods-LiveAppDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveAppDemo.release.xcconfig"; path = "Target Support Files/Pods-LiveAppDemo/Pods-LiveAppDemo.release.xcconfig"; sourceTree = "<group>"; };
 		5D4E33FC2471795F00D10C47 /* CXCameraInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CXCameraInput.h; sourceTree = "<group>"; };
 		5D4E33FD2471795F00D10C47 /* CXCameraInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CXCameraInput.m; sourceTree = "<group>"; };
+		5DB53AC52472CE9000C97005 /* CXCaptureSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CXCaptureSessionManager.h; sourceTree = "<group>"; };
+		5DB53AC62472CE9000C97005 /* CXCaptureSessionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CXCaptureSessionManager.m; sourceTree = "<group>"; };
 		5DD6275624716AAE00C75AD1 /* LiveAppDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveAppDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DD6275924716AAE00C75AD1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5DD6275A24716AAE00C75AD1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -78,6 +81,8 @@
 				5D4E33FD2471795F00D10C47 /* CXCameraInput.m */,
 				6532E7D624726E1D001DD9EA /* CXCameraOutput.h */,
 				6532E7D724726E1D001DD9EA /* CXCameraOutput.m */,
+				5DB53AC52472CE9000C97005 /* CXCaptureSessionManager.h */,
+				5DB53AC62472CE9000C97005 /* CXCaptureSessionManager.m */,
 			);
 			path = "Camera Capture";
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 				5DD6275B24716AAE00C75AD1 /* AppDelegate.m in Sources */,
 				5DD6276C24716AB100C75AD1 /* main.m in Sources */,
 				5DD6275E24716AAE00C75AD1 /* SceneDelegate.m in Sources */,
+				5DB53AC72472CE9000C97005 /* CXCaptureSessionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

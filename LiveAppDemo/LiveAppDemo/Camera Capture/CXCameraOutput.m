@@ -7,7 +7,6 @@
 //
 
 #import "CXCameraOutput.h"
-#import <AVFoundation/AVFoundation.h>
 #import <CoreVideo/CoreVideo.h>
 
 @interface CXCameraOutput ()<AVCaptureVideoDataOutputSampleBufferDelegate>
@@ -26,10 +25,12 @@
     return self;
 }
 
+//YUV比RGB更节省内存
 - (void)useVideoOutputOfYUV {
     self.capturedDeviceOutput = ({
         __auto_type output = [AVCaptureVideoDataOutput new];
 
+        //这样设置用于高清了
         [output setVideoSettings:@{
         (__bridge NSString *)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
         }];
@@ -39,6 +40,14 @@
         output.alwaysDiscardsLateVideoFrames = YES;
         output;
     });
+}
+
+#pragma mark - Output Delegate
+- (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+
+    if (self.didOutputData) {
+        self.didOutputData(sampleBuffer, connection);
+    }
 }
 
 @end
