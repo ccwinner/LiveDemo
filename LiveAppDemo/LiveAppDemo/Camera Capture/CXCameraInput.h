@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class AVCaptureDeviceInput, AVCaptureSession, AVCaptureDevice;
+#import <AVFoundation/AVFoundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithSession:(AVCaptureSession *)session;
 - (void)prepareForInput;
+- (void)useCameraPosition:(AVCaptureDevicePosition)position;
 
 @end
 

@@ -8,7 +8,6 @@
 
 #import "CXCameraInput.h"
 #import "CXMacros.h"
-#import <AVFoundation/AVFoundation.h>
 
 @interface CXCameraInput ()
 @property (nonatomic, strong) AVCaptureSession *session;
