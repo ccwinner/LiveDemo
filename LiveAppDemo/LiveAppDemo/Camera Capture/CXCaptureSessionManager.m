@@ -14,7 +14,11 @@
 @property (nonatomic, strong) AVCaptureSession *session;
 @property (nonatomic, strong) CXCameraInput *input;
 @property (nonatomic, strong) CXCameraOutput *output;
-@property (nonatomic, copy) AVCaptureConnection *connection;
+
+@property (nonatomic, strong) AVCaptureConnection *connection;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *videoLayer;
+
+@property (nonatomic, assign) NSInteger frameRate; //default is 30
 @end
 
 @implementation CXCaptureSessionManager
@@ -42,6 +46,8 @@
     [self changeResolution:CXCaptureResolutionType720p];
 
     [self configConnection];
+
+    [self configPreviewLayer];
     //配置输出帧率
     [self changeFrameRate:self.frameRate];
 }
@@ -115,8 +121,28 @@
     [self.input.camera unlockForConfiguration];
 }
 
++ (void)requestCameraPermission:(void(^)(BOOL granted))callback {
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:callback];
+}
+
 - (void)startCapture {
     //todo:开始采集视频
+    __weak typeof(self) weakS = self;
+    void (^handler)(BOOL) = ^(BOOL granted) {
+        if (granted) {
+            [weakS.session startRunning];
+        }
+    };
+    if (AVAuthorizationStatusAuthorized != [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo]) {
+
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:handler];
+    } else {
+        handler(YES);
+    }
+}
+
+- (void)stopCapture {
+    [self.session stopRunning];
 }
 
 #pragma mark - Logic
@@ -128,9 +154,14 @@
 - (void)configOutput {
     self.output = [[CXCameraOutput alloc] initWithSession:self.session];
     [self.output useVideoOutputOfYUV];
+    self.output.didOutputData = ^(CMSampleBufferRef  _Nonnull sampleBuffer, AVCaptureConnection * _Nonnull connection) {
+        //用来将数据进行处理 美颜等效果用的
+    };
 }
 
 - (void)configConnection {
+    //output的connection和preViewLayer的connection
+    //不是同一个实例，两个要分别设置横竖屏等配置,才能保证output导出的数据流配置与preview的一致
     self.connection = ({
         __auto_type conn = [self.output.capturedDeviceOutput connectionWithMediaType:AVMediaTypeVideo];
         //采集到的是竖屏流
@@ -140,6 +171,12 @@
         }
         conn;
     });
+}
+
+- (void)configPreviewLayer {
+    self.videoLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
+    self.videoLayer.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
+    self.videoLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 }
 
 @end

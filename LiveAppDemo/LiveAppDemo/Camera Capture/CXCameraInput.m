@@ -11,7 +11,6 @@
 
 @interface CXCameraInput ()
 @property (nonatomic, strong) AVCaptureSession *session;
-@property (nonatomic, strong) dispatch_queue_t serialQueue;
 @property (nonatomic, strong) AVCaptureDeviceInput *capturedDeviceInput;
 @property (nonatomic, assign) NSInteger currentPosition;
 @end
@@ -22,16 +21,8 @@
 - (instancetype)initWithSession:(AVCaptureSession *)session {
     if (self = [super init]) {
         _session = session;
-        _serialQueue = dispatch_queue_create("com.camera.input", NULL);
-        
     }
     return self;
-}
-
-- (void)startCapture {
-    dispatch_queue_async_safe(self.serialQueue, ^{
-        [self.session startRunning];
-    });
 }
 
 - (void)prepareForInput {
