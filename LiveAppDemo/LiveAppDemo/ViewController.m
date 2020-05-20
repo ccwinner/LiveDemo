@@ -3,7 +3,7 @@
 //  LiveAppDemo
 //
 //  Created by chenxiao on 2020/5/17.
-//  Copyright © 2020 com.kwai. All rights reserved.
+//  Copyright © 2020 com.liveDemo. All rights reserved.
 //
 
 #import "ViewController.h"
