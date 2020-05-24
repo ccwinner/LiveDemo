@@ -2,7 +2,7 @@
 //  CXCaptureSessionManager.h
 //  LiveAppDemo
 //
-//  Created by chenxiao on 2020/5/18.
+//  Created by ccwinner on 2020/5/18.
 //  Copyright © 2020 com.liveDemo. All rights reserved.
 //
 

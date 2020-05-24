@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D365665247A054E008EA766 /* CCWVideoFilterAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5D365664247A054E008EA766 /* CCWVideoFilterAdapter.mm */; };
+		5D365668247A0772008EA766 /* CCWVideoSharedContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D365667247A0772008EA766 /* CCWVideoSharedContext.m */; };
+		5D36566A247A2731008EA766 /* VertexShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 5D365669247A2731008EA766 /* VertexShader.vsh */; };
+		5D36566C247A27A3008EA766 /* YuvFullRange.fsv in Resources */ = {isa = PBXBuildFile; fileRef = 5D36566B247A27A3008EA766 /* YuvFullRange.fsv */; };
 		5D4E33FE2471795F00D10C47 /* CXCameraInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4E33FD2471795F00D10C47 /* CXCameraInput.m */; };
 		5DB53AC72472CE9000C97005 /* CXCaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB53AC62472CE9000C97005 /* CXCaptureSessionManager.m */; };
 		5DD6275B24716AAE00C75AD1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6275A24716AAE00C75AD1 /* AppDelegate.m */; };
@@ -22,6 +26,12 @@
 
 /* Begin PBXFileReference section */
 		138B072B57BB68933C514B20 /* Pods-LiveAppDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveAppDemo.release.xcconfig"; path = "Target Support Files/Pods-LiveAppDemo/Pods-LiveAppDemo.release.xcconfig"; sourceTree = "<group>"; };
+		5D365663247A054E008EA766 /* CCWVideoFilterAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCWVideoFilterAdapter.h; sourceTree = "<group>"; };
+		5D365664247A054E008EA766 /* CCWVideoFilterAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CCWVideoFilterAdapter.mm; sourceTree = "<group>"; };
+		5D365666247A0772008EA766 /* CCWVideoSharedContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCWVideoSharedContext.h; sourceTree = "<group>"; };
+		5D365667247A0772008EA766 /* CCWVideoSharedContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCWVideoSharedContext.m; sourceTree = "<group>"; };
+		5D365669247A2731008EA766 /* VertexShader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = VertexShader.vsh; sourceTree = "<group>"; };
+		5D36566B247A27A3008EA766 /* YuvFullRange.fsv */ = {isa = PBXFileReference; lastKnownFileType = text; path = YuvFullRange.fsv; sourceTree = "<group>"; };
 		5D4E33FC2471795F00D10C47 /* CXCameraInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CXCameraInput.h; sourceTree = "<group>"; };
 		5D4E33FD2471795F00D10C47 /* CXCameraInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CXCameraInput.m; sourceTree = "<group>"; };
 		5DB53AC52472CE9000C97005 /* CXCaptureSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CXCaptureSessionManager.h; sourceTree = "<group>"; };
@@ -74,6 +84,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5D36566D247A2810008EA766 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				5D365669247A2731008EA766 /* VertexShader.vsh */,
+				5D36566B247A27A3008EA766 /* YuvFullRange.fsv */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
 		5D4E33FF2471796800D10C47 /* Camera Capture */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +140,11 @@
 				5DD6276B24716AB100C75AD1 /* main.m */,
 				6532E7D524726179001DD9EA /* CXMacros.h */,
 				5D4E33FF2471796800D10C47 /* Camera Capture */,
+				5D365663247A054E008EA766 /* CCWVideoFilterAdapter.h */,
+				5D365664247A054E008EA766 /* CCWVideoFilterAdapter.mm */,
+				5D36566D247A2810008EA766 /* Shaders */,
+				5D365666247A0772008EA766 /* CCWVideoSharedContext.h */,
+				5D365667247A0772008EA766 /* CCWVideoSharedContext.m */,
 			);
 			path = LiveAppDemo;
 			sourceTree = "<group>";
@@ -185,6 +209,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DD6276924716AB100C75AD1 /* LaunchScreen.storyboard in Resources */,
+				5D36566A247A2731008EA766 /* VertexShader.vsh in Resources */,
+				5D36566C247A27A3008EA766 /* YuvFullRange.fsv in Resources */,
 				5DD6276624716AB100C75AD1 /* Assets.xcassets in Resources */,
 				5DD6276424716AAE00C75AD1 /* Main.storyboard in Resources */,
 			);
@@ -243,7 +269,9 @@
 				5DD6276124716AAE00C75AD1 /* ViewController.m in Sources */,
 				5D4E33FE2471795F00D10C47 /* CXCameraInput.m in Sources */,
 				5DD6275B24716AAE00C75AD1 /* AppDelegate.m in Sources */,
+				5D365668247A0772008EA766 /* CCWVideoSharedContext.m in Sources */,
 				5DD6276C24716AB100C75AD1 /* main.m in Sources */,
+				5D365665247A054E008EA766 /* CCWVideoFilterAdapter.mm in Sources */,
 				5DD6275E24716AAE00C75AD1 /* SceneDelegate.m in Sources */,
 				5DB53AC72472CE9000C97005 /* CXCaptureSessionManager.m in Sources */,
 			);
