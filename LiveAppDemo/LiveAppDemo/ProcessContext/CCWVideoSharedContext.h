@@ -2,8 +2,8 @@
 //  CCWVideoSharedContext.h
 //  LiveAppDemo
 //
-//  Created by chenxiao on 2020/5/24.
-//  Copyright © 2020 com.kwai. All rights reserved.
+//  Created by ccwinner on 2020/5/24.
+//  Copyright © 2020 com.LiveDemo. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
