@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D13B82E2480AB320044FABA /* Passthrough.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 5D13B82D2480AB320044FABA /* Passthrough.fsh */; };
 		5D365665247A054E008EA766 /* CCWVideoFilterAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5D365664247A054E008EA766 /* CCWVideoFilterAdapter.mm */; };
 		5D365668247A0772008EA766 /* CCWVideoSharedContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D365667247A0772008EA766 /* CCWVideoSharedContext.m */; };
 		5D36566A247A2731008EA766 /* VertexShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 5D365669247A2731008EA766 /* VertexShader.vsh */; };
-		5D36566C247A27A3008EA766 /* YuvConversionFullRange.fsv in Resources */ = {isa = PBXBuildFile; fileRef = 5D36566B247A27A3008EA766 /* YuvConversionFullRange.fsv */; };
+		5D36566C247A27A3008EA766 /* YuvConversionFullRange.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 5D36566B247A27A3008EA766 /* YuvConversionFullRange.fsh */; };
 		5D4E33FE2471795F00D10C47 /* CXCameraInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4E33FD2471795F00D10C47 /* CXCameraInput.m */; };
 		5DB53AC72472CE9000C97005 /* CXCaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB53AC62472CE9000C97005 /* CXCaptureSessionManager.m */; };
 		5DD6275B24716AAE00C75AD1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6275A24716AAE00C75AD1 /* AppDelegate.m */; };
@@ -20,7 +21,7 @@
 		5DD6276624716AB100C75AD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DD6276524716AB100C75AD1 /* Assets.xcassets */; };
 		5DD6276924716AB100C75AD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DD6276724716AB100C75AD1 /* LaunchScreen.storyboard */; };
 		5DD6276C24716AB100C75AD1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6276B24716AB100C75AD1 /* main.m */; };
-		650DF652247D148B00345E5C /* YuvConversionYUV.fsv in Resources */ = {isa = PBXBuildFile; fileRef = 650DF651247D148B00345E5C /* YuvConversionYUV.fsv */; };
+		650DF652247D148B00345E5C /* YuvConversionYUV.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 650DF651247D148B00345E5C /* YuvConversionYUV.fsh */; };
 		6532E7D824726E1D001DD9EA /* CXCameraOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532E7D724726E1D001DD9EA /* CXCameraOutput.m */; };
 		65C10085247E743C00028398 /* CCWDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C10084247E743C00028398 /* CCWDisplayView.m */; };
 		AFC2D8C04E0A9F94FE763026 /* libPods-LiveAppDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6F0E17922F91CBE585B2678 /* libPods-LiveAppDemo.a */; };
@@ -28,12 +29,15 @@
 
 /* Begin PBXFileReference section */
 		138B072B57BB68933C514B20 /* Pods-LiveAppDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveAppDemo.release.xcconfig"; path = "Target Support Files/Pods-LiveAppDemo/Pods-LiveAppDemo.release.xcconfig"; sourceTree = "<group>"; };
+		5D13B82C2480A6810044FABA /* CCWQueueOperationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCWQueueOperationHelper.h; sourceTree = "<group>"; };
+		5D13B82D2480AB320044FABA /* Passthrough.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Passthrough.fsh; sourceTree = "<group>"; };
+		5D13B8302481043D0044FABA /* CCWCaptureSessionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCWCaptureSessionDelegate.h; sourceTree = "<group>"; };
 		5D365663247A054E008EA766 /* CCWVideoFilterAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCWVideoFilterAdapter.h; sourceTree = "<group>"; };
 		5D365664247A054E008EA766 /* CCWVideoFilterAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CCWVideoFilterAdapter.mm; sourceTree = "<group>"; };
 		5D365666247A0772008EA766 /* CCWVideoSharedContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCWVideoSharedContext.h; sourceTree = "<group>"; };
 		5D365667247A0772008EA766 /* CCWVideoSharedContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCWVideoSharedContext.m; sourceTree = "<group>"; };
 		5D365669247A2731008EA766 /* VertexShader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = VertexShader.vsh; sourceTree = "<group>"; };
-		5D36566B247A27A3008EA766 /* YuvConversionFullRange.fsv */ = {isa = PBXFileReference; lastKnownFileType = text; path = YuvConversionFullRange.fsv; sourceTree = "<group>"; };
+		5D36566B247A27A3008EA766 /* YuvConversionFullRange.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = YuvConversionFullRange.fsh; sourceTree = "<group>"; };
 		5D4E33FC2471795F00D10C47 /* CXCameraInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CXCameraInput.h; sourceTree = "<group>"; };
 		5D4E33FD2471795F00D10C47 /* CXCameraInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CXCameraInput.m; sourceTree = "<group>"; };
 		5DB53AC52472CE9000C97005 /* CXCaptureSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CXCaptureSessionManager.h; sourceTree = "<group>"; };
@@ -50,7 +54,7 @@
 		5DD6276824716AB100C75AD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5DD6276A24716AB100C75AD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5DD6276B24716AB100C75AD1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		650DF651247D148B00345E5C /* YuvConversionYUV.fsv */ = {isa = PBXFileReference; lastKnownFileType = text; path = YuvConversionYUV.fsv; sourceTree = "<group>"; };
+		650DF651247D148B00345E5C /* YuvConversionYUV.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = YuvConversionYUV.fsh; sourceTree = "<group>"; };
 		6532E7D524726179001DD9EA /* CXMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CXMacros.h; sourceTree = "<group>"; };
 		6532E7D624726E1D001DD9EA /* CXCameraOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CXCameraOutput.h; sourceTree = "<group>"; };
 		6532E7D724726E1D001DD9EA /* CXCameraOutput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CXCameraOutput.m; sourceTree = "<group>"; };
@@ -93,8 +97,9 @@
 			isa = PBXGroup;
 			children = (
 				5D365669247A2731008EA766 /* VertexShader.vsh */,
-				5D36566B247A27A3008EA766 /* YuvConversionFullRange.fsv */,
-				650DF651247D148B00345E5C /* YuvConversionYUV.fsv */,
+				5D36566B247A27A3008EA766 /* YuvConversionFullRange.fsh */,
+				650DF651247D148B00345E5C /* YuvConversionYUV.fsh */,
+				5D13B82D2480AB320044FABA /* Passthrough.fsh */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -108,6 +113,7 @@
 				6532E7D724726E1D001DD9EA /* CXCameraOutput.m */,
 				5DB53AC52472CE9000C97005 /* CXCaptureSessionManager.h */,
 				5DB53AC62472CE9000C97005 /* CXCaptureSessionManager.m */,
+				5D13B8302481043D0044FABA /* CCWCaptureSessionDelegate.h */,
 			);
 			path = "Camera Capture";
 			sourceTree = "<group>";
@@ -151,6 +157,7 @@
 				65C10081247E729800028398 /* ProcessContext */,
 				65C10083247E743C00028398 /* CCWDisplayView.h */,
 				65C10084247E743C00028398 /* CCWDisplayView.m */,
+				5D13B82C2480A6810044FABA /* CCWQueueOperationHelper.h */,
 			);
 			path = LiveAppDemo;
 			sourceTree = "<group>";
@@ -233,9 +240,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DD6276924716AB100C75AD1 /* LaunchScreen.storyboard in Resources */,
-				650DF652247D148B00345E5C /* YuvConversionYUV.fsv in Resources */,
+				650DF652247D148B00345E5C /* YuvConversionYUV.fsh in Resources */,
 				5D36566A247A2731008EA766 /* VertexShader.vsh in Resources */,
-				5D36566C247A27A3008EA766 /* YuvConversionFullRange.fsv in Resources */,
+				5D13B82E2480AB320044FABA /* Passthrough.fsh in Resources */,
+				5D36566C247A27A3008EA766 /* YuvConversionFullRange.fsh in Resources */,
 				5DD6276624716AB100C75AD1 /* Assets.xcassets in Resources */,
 				5DD6276424716AAE00C75AD1 /* Main.storyboard in Resources */,
 			);

@@ -13,6 +13,7 @@
 #import <OpenGLES/ES3/gl.h>
 #import <OpenGLES/ES2/glext.h>
 #import <CoreFoundation/CoreFoundation.h>
+#import "CCWQueueOperationHelper.h"
 
 //#import <fstream>
 //#import <string>
@@ -75,27 +76,12 @@ const GLfloat kColorConversion601FullRange[] = {
     CCWFillterAdapterTextureOptions defaultTextureOptions;
 }
 
-@property (nonatomic) CVOpenGLESTextureCacheRef textureCache;
-@property (nonatomic) EAGLContext *glContext;
+@property (nonatomic, readonly) CVOpenGLESTextureCacheRef textureCache;
+@property (nonatomic, readonly) EAGLContext *glContext;
+@property (nonatomic, weak) CCWDisplayView *weakDisplayView;
 
 //@property (nonatomic, strong) GPUImageVideoCamera *tmpVideocamera;
 @end
-
-void asyncToVideoProcessorQueue(dispatch_block_t handler) {
-    if (dispatch_get_specific(videoProcessQKey)) {
-        handler();
-    } else {
-        dispatch_async([[CCWVideoSharedContext context] videoProcessQueue], handler);
-    }
-}
-
-void syncToVideoProcessorQueue(dispatch_block_t handler) {
-    if (dispatch_get_specific(videoProcessQKey)) {
-        handler();
-    } else {
-        dispatch_sync([[CCWVideoSharedContext context] videoProcessQueue], handler);
-    }
-}
 
 @implementation CCWVideoFilterAdapter
 
@@ -119,9 +105,8 @@ void syncToVideoProcessorQueue(dispatch_block_t handler) {
 //这个方法在单独线程处理,这个线程创建了一个glcontext。防止context重叠导致显示有错.
 //多个context如果设置了shareGroup,可以共存
 - (void)processVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer{
-    //todo:绑定shader 构建上下文
 
-    [self useVideoProcessingContext];
+    [self userVideoProcessContextAndConversionProgram];
     
     //绑texture
     CVImageBufferRef cameraFrame = CMSampleBufferGetImageBuffer(sampleBuffer);
@@ -171,7 +156,7 @@ void syncToVideoProcessorQueue(dispatch_block_t handler) {
     //色度 ref
     CVOpenGLESTextureRef chrominanceTextureRef = NULL;
 
-    CVReturn cerr = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, self.textureCache, cameraFrame, NULL, GL_TEXTURE_2D, GL_LUMINANCE_ALPHA, bufferWidth, bufferHeight, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, 1, &chrominanceTextureRef);
+    CVReturn cerr = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, self.textureCache, cameraFrame, NULL, GL_TEXTURE_2D, GL_LUMINANCE_ALPHA, bufferWidth/2, bufferHeight/2, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, 1, &chrominanceTextureRef);
 
     if (cerr) {
         NSLog(@"--------txtCache c error");
@@ -191,6 +176,11 @@ void syncToVideoProcessorQueue(dispatch_block_t handler) {
     //yuv to rgb
     //todo:如果屏幕被旋转过 帧的宽高就要颠倒过来
     [self convertYUVToRGBOutput];
+
+    //传给显示view
+    [self.weakDisplayView setupOutputFramebuffer:self->outputFramebuffer];
+    [self.weakDisplayView updateFrameImageSize:CGSizeMake(bufferWidth, bufferHeight)];
+    [self.weakDisplayView drawFrameTextureIndex:4 texture:self->outputRenderTexture];
     
     //恢复上下文
     CVPixelBufferUnlockBaseAddress(cameraFrame, 0);
@@ -246,8 +236,8 @@ void syncToVideoProcessorQueue(dispatch_block_t handler) {
     CFRelease(attrs);
     CFRelease(empty);
 
-    outputRenderTexture = CVOpenGLESTextureGetName(outputPixelBufferRef);
-    glBindTexture(CVOpenGLESTextureGetTarget(outputRenderTextureRef), outputRenderTexture);
+    glBindTexture(CVOpenGLESTextureGetTarget(outputRenderTextureRef), CVOpenGLESTextureGetName(outputPixelBufferRef));
+    outputRenderTexture = CVOpenGLESTextureGetName(outputRenderTextureRef);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, defaultTextureOptions.wrapS);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, defaultTextureOptions.wrapT);
     
@@ -275,11 +265,12 @@ void syncToVideoProcessorQueue(dispatch_block_t handler) {
        -1.0f,  1.0f,
        1.0f,  1.0f,
     };
+    //先按照竖屏前置摄像头处理
     static const GLfloat rotateRightVerticalFlipTextureCoordinates[] = {
-        0.0f, 0.0f,
         0.0f, 1.0f,
-        1.0f, 0.0f,
+        0.0f, 0.0f,
         1.0f, 1.0f,
+        1.0f, 0.0f,
     };
     /*
      硬件设备采集到的的输出格式是yuv或者bgra，opengl渲染支持rgba，所以要转下。
@@ -306,26 +297,12 @@ void syncToVideoProcessorQueue(dispatch_block_t handler) {
 
 #pragma mark - texture cache
 - (CVOpenGLESTextureCacheRef)textureCache {
-    if (!_textureCache) {
-        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, self.glContext, NULL, &_textureCache);
-        if (err) {
-            NSLog(@"openglES txt cache create failed");
-        }
-    }
-    return _textureCache;
+    return [[CCWVideoSharedContext context] textureCache];
 }
 
 - (EAGLContext *)glContext;
 {
-    if (_glContext == nil)
-    {
-        _glContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-        [EAGLContext setCurrentContext:_glContext];
-        //不需要3d
-        glDisable(GL_DEPTH_TEST);
-    }
-
-    return _glContext;
+    return [[CCWVideoSharedContext context] glContext];
 }
 
 - (void)setupAdapter {
@@ -335,10 +312,9 @@ void syncToVideoProcessorQueue(dispatch_block_t handler) {
 #pragma mark - Private
 - (void)prepareWorkForConversion {
     
-    asyncToVideoProcessorQueue(^{
+    syncToVideoProcessorQueue(^{
 
         [self glContext];
-        [self useVideoProcessingContext];
 
         self->_conversionProgram = glCreateProgram();
         self->currentProgram = self->_conversionProgram;
@@ -355,8 +331,8 @@ void syncToVideoProcessorQueue(dispatch_block_t handler) {
             yuvPath = [[NSBundle mainBundle] pathForResource:@"YuvConversionYUV" ofType:@"fsh"];
         }
         
-        self->vertexShader = [self buildShaderProgramForPath:vsPath];
-        self->conversionFragShader = [self buildShaderProgramForPath:yuvPath];
+        self->vertexShader = [self buildShaderProgramForPath:vsPath type:GL_VERTEX_SHADER];
+        self->conversionFragShader = [self buildShaderProgramForPath:yuvPath type:GL_FRAGMENT_SHADER];
 
         self->positionLoc = 0; self->inputTextureCoordinateLoc = 1;
 
@@ -390,13 +366,15 @@ void syncToVideoProcessorQueue(dispatch_block_t handler) {
 
         glEnableVertexAttribArray(self->positionLoc);
         glEnableVertexAttribArray(self->inputTextureCoordinateLoc);
+
+        [self userVideoProcessContextAndConversionProgram];
     });
 
 }
 
-- (GLuint)buildShaderProgramForPath:(NSString *)path {
+- (GLuint)buildShaderProgramForPath:(NSString *)path type:(GLenum)type {
     const char *shaderL = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil].UTF8String;
-    GLuint shader = glCreateShader(GL_VERTEX_SHADER);
+    GLuint shader = glCreateShader(type);
     const GLchar *source = (GLchar *)shaderL;
     glShaderSource(shader, 1, &source, NULL);
     glCompileShader(shader);
@@ -411,21 +389,23 @@ void syncToVideoProcessorQueue(dispatch_block_t handler) {
 }
 
 - (void)useVideoProcessingContext {
-    if ([EAGLContext currentContext] != [self glContext]) {
-        [EAGLContext setCurrentContext:[self glContext]];
-    }
-    if (self->currentProgram != self->_conversionProgram) {
-        self->currentProgram = self->_conversionProgram;
-        glUseProgram(self->currentProgram);
-    }
+    [[CCWVideoSharedContext context] useVideoProcessingContext];
 }
 
+- (void)userVideoProcessContextAndConversionProgram {
+    [[CCWVideoSharedContext context] setContextProgram:_conversionProgram];
+}
+
+#pragma mark - Display
+- (void)addDisplayView:(CCWDisplayView *)view {
+    self.weakDisplayView = view;
+}
 
 #pragma mark - free
 - (void)dealloc {
     syncToVideoProcessorQueue(^{
         if (self->outputFramebuffer != 0) {
-            glDeleteBuffers(1, &self->outputFramebuffer);
+            glDeleteFramebuffers(1, &self->outputFramebuffer);
         }
         if (self->outputPixelBufferRef) {
             CFRelease(self->outputPixelBufferRef);

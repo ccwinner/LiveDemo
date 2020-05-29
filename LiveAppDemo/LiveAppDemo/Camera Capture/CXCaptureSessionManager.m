@@ -154,8 +154,10 @@
 - (void)configOutput {
     self.output = [[CXCameraOutput alloc] initWithSession:self.session];
     [self.output useVideoOutputOfYUV];
+    __weak typeof(self) weakS = self;
     self.output.didOutputData = ^(CMSampleBufferRef  _Nonnull sampleBuffer, AVCaptureConnection * _Nonnull connection) {
         //用来将数据进行处理 美颜等效果用的
+        [weakS.delegate outputSamplebuffer:sampleBuffer];
     };
 }
 

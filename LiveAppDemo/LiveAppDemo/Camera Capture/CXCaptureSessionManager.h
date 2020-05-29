@@ -6,7 +6,8 @@
 //  Copyright © 2020 com.liveDemo. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <CoreMedia/CoreMedia.h>
+#import "CCWCaptureSessionDelegate.h"
 @class AVCaptureVideoPreviewLayer;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -23,6 +24,7 @@ typedef NS_ENUM(int, CXCaptureResolutionType) {
 @interface CXCaptureSessionManager : NSObject
 /// 用来预览,配置好以后layer就会被创建
 @property (nonatomic, readonly) AVCaptureVideoPreviewLayer *videoLayer;
+@property (nonatomic, weak) id<CCWCaptureSessionDelegate> delegate;
 
 + (instancetype)manager;
 

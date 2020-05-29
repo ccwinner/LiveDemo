@@ -6,7 +6,7 @@
 //  Copyright © 2020 com.LiveDemo. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <GLKit/GLKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +16,12 @@ FOUNDATION_EXTERN const char *videoProcessQKey;
 + (instancetype)context;
 
 @property (nonatomic, readonly) dispatch_queue_t videoProcessQueue;
+
+- (EAGLContext *)glContext;
+- (CVOpenGLESTextureCacheRef)textureCache;
+- (void)useVideoProcessingContext;
+/// glprogram 可以封装一下
+- (void)setContextProgram:(GLuint)glprogram;
 @end
 
 NS_ASSUME_NONNULL_END
