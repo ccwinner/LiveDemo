@@ -47,7 +47,7 @@
 
     [self configConnection];
 
-    [self configPreviewLayer];
+//    [self configPreviewLayer];
     //配置输出帧率
     [self changeFrameRate:self.frameRate];
 }
@@ -164,6 +164,10 @@
 - (void)configConnection {
     //output的connection和preViewLayer的connection
     //不是同一个实例，两个要分别设置横竖屏等配置,才能保证output导出的数据流配置与preview的一致
+
+    //如果不这样设置 (GPUImage就没有设置）
+    //则在convertYUVtoRGBoutput阶段, gpuimage做了两次shader的link和运行，第一次的纹理坐标传入右转矩阵,第二次传入的才是显示用的上下翻转矩阵。
+    //如果这里设置了,则只需上下翻转矩阵就行。
     self.connection = ({
         __auto_type conn = [self.output.capturedDeviceOutput connectionWithMediaType:AVMediaTypeVideo];
         //采集到的是竖屏流

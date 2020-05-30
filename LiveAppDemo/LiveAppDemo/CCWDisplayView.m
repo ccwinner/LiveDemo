@@ -39,19 +39,6 @@
 
 @implementation CCWDisplayView
 
-static const GLfloat kColorConversion601[] = {
-    1.164,  1.164, 1.164,
-    0.0, -0.392, 2.017,
-    1.596, -0.813,   0.0,
-};
-
-// BT.709, which is the standard for HDTV.
-static const GLfloat kColorConversion709[] = {
-    1.164,  1.164, 1.164,
-    0.0, -0.213, 2.112,
-    1.793, -0.533,   0.0,
-};
-
 // BT.601 full range (ref: http://www.equasys.de/colorconversion.html)
 static const GLfloat kColorConversion601FullRange[] = {
     1.0,    1.0,    1.0,
@@ -307,25 +294,6 @@ static const GLfloat kColorConversion601FullRange[] = {
     _bufferHeight = bufferHeight;
 
 
-//    CFTypeRef colorAttachments = CVBufferGetAttachment(cameraFrame, kCVImageBufferYCbCrMatrixKey, NULL);
-//    if (colorAttachments != NULL) {
-//        if(CFStringCompare((CFStringRef)colorAttachments, kCVImageBufferYCbCrMatrix_ITU_R_601_4, 0) == kCFCompareEqualTo) {
-//            if (self.sampeFormat == CCWVideoSampleFormatFullRangeYUV) {
-//                self->colorConversionMatrixPtr = kColorConversion601FullRange;
-//            } else {
-//                 self->colorConversionMatrixPtr = kColorConversion601;
-//            }
-//        } else {
-//             self->colorConversionMatrixPtr = kColorConversion709;
-//        }
-//    } else {
-//        if (self.sampeFormat == CCWVideoSampleFormatFullRangeYUV) {
-//             self->colorConversionMatrixPtr = kColorConversion601FullRange;
-//        } else {
-//             self->colorConversionMatrixPtr = kColorConversion601;
-//        }
-//    }
-
     // 创建亮度纹理
     // 激活纹理单元0, 不激活，创建纹理会失败
     glActiveTexture(GL_TEXTURE0);
@@ -345,6 +313,9 @@ static const GLfloat kColorConversion601FullRange[] = {
     // 设置纹理滤波
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    // 设置纹理过滤
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
     // 激活单元1
     glActiveTexture(GL_TEXTURE1);
@@ -363,6 +334,9 @@ static const GLfloat kColorConversion601FullRange[] = {
     // 设置纹理滤波
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    // 设置纹理过滤
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 }
 
 - (void)convertYUVToRGBOutput
@@ -394,6 +368,7 @@ static const GLfloat kColorConversion601FullRange[] = {
     }
 
     // 确定顶点数据结构
+    //如果是全屏展示的情况 这里就是-1-1,1-1,-11,11
     GLfloat quadVertexData [] = {
         -1 * normalizedSamplingSize.width, -1 * normalizedSamplingSize.height,
         normalizedSamplingSize.width, -1 * normalizedSamplingSize.height,
@@ -402,15 +377,18 @@ static const GLfloat kColorConversion601FullRange[] = {
     };
 
     // 确定纹理数据结构
-    GLfloat quadTextureData[] =  { // 正常坐标
+//    static GLfloat quadTextureData[] =  { // 正常坐标
 //        0, 0,
 //        1, 0,
 //        0, 1,
 //        1, 1
-        -1.0f, -1.0f,
-        1.0f, -1.0f,
-        -1.0f,  1.0f,
-        1.0f,  1.0f,
+//    };
+    //如果采用上面的纹理坐标  会发现画面颠倒了
+    static const GLfloat noRotationTextureCoordinates[] = {
+        0.0f, 1.0f,
+        1.0f, 1.0f,
+        0.0f, 0.0f,
+        1.0f, 0.0f,
     };
 
     // 激活ATTRIB_POSITION顶点数组
@@ -418,10 +396,10 @@ static const GLfloat kColorConversion601FullRange[] = {
     // 给ATTRIB_POSITION顶点数组赋值
     glVertexAttribPointer(0, 2, GL_FLOAT, 0, 0, quadVertexData);
 
-    // 激活ATTRIB_TEXCOORD顶点数组
-    glVertexAttribPointer(1, 2, GL_FLOAT, 0, 0, quadTextureData);
     // 给ATTRIB_TEXCOORD顶点数组赋值
     glEnableVertexAttribArray(1);
+    // 激活ATTRIB_TEXCOORD顶点数组
+    glVertexAttribPointer(1, 2, GL_FLOAT, 0, 0, noRotationTextureCoordinates);
 
     // 渲染纹理数据,注意一定要和纹理代码放一起
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
