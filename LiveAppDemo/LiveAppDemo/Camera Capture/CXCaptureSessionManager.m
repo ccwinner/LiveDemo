@@ -171,7 +171,8 @@
     self.connection = ({
         __auto_type conn = [self.output.capturedDeviceOutput connectionWithMediaType:AVMediaTypeVideo];
         //采集到的是竖屏流
-        conn.videoOrientation = AVCaptureVideoOrientationPortrait;
+//        conn.videoOrientation = AVCaptureVideoOrientationPortrait;
+        conn.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
         if (self.input.camera.position == AVCaptureDevicePositionFront && conn.supportsVideoMirroring) {
             conn.videoMirrored = YES;
         }

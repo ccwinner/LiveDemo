@@ -142,6 +142,14 @@ static const GLfloat kColorConversion601FullRange[] = {
 
 #pragma mark -
 - (void)setupFramebuffer {
+    glDisable(GL_DEPTH_TEST);
+    
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), 0);
+    
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), 0);
+
     glGenFramebuffers(1, &framebuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 
@@ -377,19 +385,19 @@ static const GLfloat kColorConversion601FullRange[] = {
     };
 
     // 确定纹理数据结构
-//    static GLfloat quadTextureData[] =  { // 正常坐标
-//        0, 0,
-//        1, 0,
-//        0, 1,
-//        1, 1
-//    };
+GLfloat quadTextureData[] =  { // 正常坐标
+    0, 0,
+    1, 0,
+    0, 1,
+    1, 1
+};
     //如果采用上面的纹理坐标  会发现画面颠倒了
-    static const GLfloat noRotationTextureCoordinates[] = {
-        0.0f, 1.0f,
-        1.0f, 1.0f,
-        0.0f, 0.0f,
-        1.0f, 0.0f,
-    };
+//    static const GLfloat noRotationTextureCoordinates[] = {
+//        0.0f, 1.0f,
+//        1.0f, 1.0f,
+//        0.0f, 0.0f,
+//        1.0f, 0.0f,
+//    };
 
     // 激活ATTRIB_POSITION顶点数组
     glEnableVertexAttribArray(0);
@@ -399,7 +407,7 @@ static const GLfloat kColorConversion601FullRange[] = {
     // 给ATTRIB_TEXCOORD顶点数组赋值
     glEnableVertexAttribArray(1);
     // 激活ATTRIB_TEXCOORD顶点数组
-    glVertexAttribPointer(1, 2, GL_FLOAT, 0, 0, noRotationTextureCoordinates);
+    glVertexAttribPointer(1, 2, GL_FLOAT, 0, 0, quadTextureData);
 
     // 渲染纹理数据,注意一定要和纹理代码放一起
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
